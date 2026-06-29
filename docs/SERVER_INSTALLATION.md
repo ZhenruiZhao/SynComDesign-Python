@@ -92,7 +92,85 @@ Edit:
 
 The config paths are resolved relative to the config file location unless command-line overrides are used.
 
-## 4. Run Locally on a Login Node
+## 4. Choosing Objective Modes (ID1-ID5)
+
+Edit the `objective` section in:
+
+```text
+/share/home/$USER/syncomdesign_project/config/syncomdesign_config.yml
+```
+
+Base template:
+
+```yaml
+objective:
+  scenario_id: 1
+  growth_fraction: 0.9
+  target_strain: null
+  biomass_weights: equal
+```
+
+Available modes:
+
+| ID | Meaning | Server use |
+| --- | --- | --- |
+| ID1 | Maximize total community biomass. | Default screening mode. |
+| ID2 | Maximize target-strain biomass. Only combinations containing `target_strain` are evaluated. | Use when one strain must be present or promoted. |
+| ID3 | Equal community composition. | Use when all selected strains should grow at equal biomass proportions. |
+| ID4 | Fixed community composition. | Use when a known composition ratio should be enforced. |
+| ID5 | Growth-first, N2O-consumption-second. | Use when growth must be retained while prioritizing N2O uptake. |
+
+Example ID1 config:
+
+```yaml
+objective:
+  scenario_id: 1
+  growth_fraction: 0.9
+  target_strain: null
+  biomass_weights: equal
+```
+
+Example ID2 config for strain `005`:
+
+```yaml
+objective:
+  scenario_id: 2
+  target_strain: "005"
+  growth_fraction: 0.9
+  biomass_weights: equal
+```
+
+Example ID5 config:
+
+```yaml
+objective:
+  scenario_id: 5
+  growth_fraction: 0.9
+  target_strain: null
+  biomass_weights: equal
+```
+
+Recommended project layout for multiple scenarios:
+
+```bash
+cp $PROJECT/config/syncomdesign_config.yml $PROJECT/config/id1.yml
+cp $PROJECT/config/syncomdesign_config.yml $PROJECT/config/id2_005.yml
+cp $PROJECT/config/syncomdesign_config.yml $PROJECT/config/id5.yml
+```
+
+Run each scenario into a separate output directory:
+
+```bash
+syncomdesign run \
+  --config $PROJECT/config/id2_005.yml \
+  --models $PROJECT/models \
+  --medium $PROJECT/media/medium.tsv \
+  --outdir $PROJECT/results_id2_005 \
+  --solver glpk \
+  --threads 1
+```
+
+## 5. Run Locally on a Login Node
 
 For a small smoke test:
 
@@ -114,7 +192,7 @@ syncomdesign run \
   --threads 1
 ```
 
-## 5. PBS Job Script
+## 6. PBS Job Script
 
 Save as `run_syncomdesign.pbs`:
 
@@ -151,7 +229,37 @@ qstat -u $USER
 tail -f syncomdesign.o*
 ```
 
-## 6. Zero-Biomass Diagnostics
+## 7. MATLAB Alignment Check
+
+If MATLAB reference exports are available:
+
+```bash
+syncomdesign compare-matlab \
+  --config /share/home/$USER/syncomdesign_project/config/syncomdesign_config.yml \
+  --python-outdir /share/home/$USER/syncomdesign_project/results_id1 \
+  --reference /share/home/$USER/python_reference_exports \
+  --outdir /share/home/$USER/syncomdesign_project/results_compare_matlab
+```
+
+Check:
+
+```text
+results_compare_matlab/matlab_alignment_report.md
+results_compare_matlab/matlab_alignment_summary.tsv
+results_compare_matlab/matlab_alignment_differences.tsv
+```
+
+Priority checks:
+
+1. `medium_mapping`
+2. `external_medium_bounds`
+3. `interface_bounds`
+4. `internal_transport_bounds`
+5. `community_summary`
+
+If bounds differ, fix mapping/bounds first. Do not explain bounds mismatches as solver differences.
+
+## 8. Zero-Biomass Diagnostics
 
 If all biomass values are unexpectedly zero:
 
@@ -169,7 +277,7 @@ Diagnostics are written to:
 results_id1/debug_zero_fix/
 ```
 
-## 7. Important Medium Rules
+## 9. Important Medium Rules
 
 - Medium only changes `external_medium_exchange`.
 - Unlisted external shared uptake is closed.
@@ -178,7 +286,7 @@ results_id1/debug_zero_fix/
 - Cross-feeding is allowed through shared-pool mass balance.
 - COBRApy `model.medium` is not used for the community medium.
 
-## 8. Common Problems
+## 10. Common Problems
 
 No models detected:
 
