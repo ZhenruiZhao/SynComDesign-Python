@@ -19,13 +19,6 @@ conda activate syncomdesign
 pip install -e .
 ```
 
-If the environment already exists:
-
-```bash
-conda activate syncomdesign
-pip install -e .
-```
-
 Check the command:
 
 ```bash
