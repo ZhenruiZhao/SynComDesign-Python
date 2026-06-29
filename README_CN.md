@@ -85,27 +85,6 @@ syncomdesign diagnose-zero \
 results_id1/debug_zero_fix/
 ```
 
-## MATLAB 对齐
-
-如果已有 MATLAB reference exports：
-
-```bash
-syncomdesign compare-matlab \
-  --config config/syncomdesign_config.yml \
-  --python-outdir results_id1 \
-  --reference /path/to/python_reference_exports \
-  --outdir results_compare_matlab
-```
-
-重点查看：
-
-```text
-results_compare_matlab/matlab_alignment_report.md
-results_compare_matlab/matlab_alignment_summary.tsv
-results_compare_matlab/matlab_alignment_differences.tsv
-```
-
-如果 medium bounds 或 interface bounds 不一致，优先修复 mapping/bounds，不要直接归因于 solver 差异。
 
 ## 服务器安装
 
