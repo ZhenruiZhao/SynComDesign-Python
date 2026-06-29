@@ -144,55 +144,8 @@ qstat -u $USER
 tail -f syncomdesign.o*
 ```
 
-## 6. MATLAB Alignment Check
 
-If MATLAB reference exports are available:
-
-```bash
-syncomdesign compare-matlab \
-  --config /share/home/$USER/syncomdesign_project/config/syncomdesign_config.yml \
-  --python-outdir /share/home/$USER/syncomdesign_project/results_id1 \
-  --reference /share/home/$USER/python_reference_exports \
-  --outdir /share/home/$USER/syncomdesign_project/results_compare_matlab
-```
-
-Check:
-
-```text
-results_compare_matlab/matlab_alignment_report.md
-results_compare_matlab/matlab_alignment_summary.tsv
-results_compare_matlab/matlab_alignment_differences.tsv
-```
-
-Priority checks:
-
-1. `medium_mapping`
-2. `external_medium_bounds`
-3. `interface_bounds`
-4. `internal_transport_bounds`
-5. `community_summary`
-
-If bounds differ, fix mapping/bounds first. Do not explain bounds mismatches as solver differences.
-
-## 7. Zero-Biomass Diagnostics
-
-If all biomass values are unexpectedly zero:
-
-```bash
-syncomdesign diagnose-zero \
-  --config /share/home/$USER/syncomdesign_project/config/syncomdesign_config.yml \
-  --models /share/home/$USER/syncomdesign_project/models \
-  --medium /share/home/$USER/syncomdesign_project/media/medium.tsv \
-  --outdir /share/home/$USER/syncomdesign_project/results_id1
-```
-
-Diagnostics are written to:
-
-```text
-results_id1/debug_zero_fix/
-```
-
-## 8. Important Medium Rules
+## 6. Important Medium Rules
 
 - Medium only changes `external_medium_exchange`.
 - Unlisted external shared uptake is closed.
@@ -201,7 +154,7 @@ results_id1/debug_zero_fix/
 - Cross-feeding is allowed through shared-pool mass balance.
 - COBRApy `model.medium` is not used for the community medium.
 
-## 9. Common Problems
+## 7. Common Problems
 
 No models detected:
 
