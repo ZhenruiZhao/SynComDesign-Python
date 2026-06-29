@@ -97,26 +97,6 @@ Main output tables include:
 - `flux_mapping.tsv`
 - `flux_values.tsv`
 
-## MATLAB Alignment
-
-If MATLAB reference exports are available:
-
-```bash
-syncomdesign compare-matlab \
-  --config config/syncomdesign_config.yml \
-  --python-outdir results_id1 \
-  --reference /path/to/python_reference_exports \
-  --outdir results_compare_matlab
-```
-
-Inspect:
-
-```text
-results_compare_matlab/matlab_alignment_report.md
-results_compare_matlab/matlab_alignment_summary.tsv
-results_compare_matlab/matlab_alignment_differences.tsv
-```
-
 ## Server Use
 
 See [docs/SERVER_INSTALLATION.md](docs/SERVER_INSTALLATION.md) for a detailed multi-user Linux/PBS installation guide.
