@@ -1,0 +1,17 @@
+#!/bin/bash
+#PBS -N syncomdesign
+#PBS -l nodes=node1:ppn=20
+#PBS -j oe
+
+set -euo pipefail
+
+source /share/software/miniconda3/etc/profile.d/conda.sh
+conda activate syncomdesign
+
+syncomdesign run \
+  --config /share/home/$USER/syncomdesign_project/config/syncomdesign_config.yml \
+  --models /share/home/$USER/syncomdesign_project/models \
+  --medium /share/home/$USER/syncomdesign_project/media/medium.tsv \
+  --outdir /share/home/$USER/syncomdesign_project/results \
+  --solver glpk \
+  --threads 1

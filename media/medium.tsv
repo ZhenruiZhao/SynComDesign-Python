@@ -1,0 +1,44 @@
+metabolite	exchange_rxn	lower_bound	upper_bound	description
+no3	R_EX_no3_e	-1000	1000	# Nitrate 
+k	R_EX_k_e	-1000	1000	# K+
+cl	R_EX_cl_e	-1000	1000	# Cl-
+mg2	R_EX_mg2_e	-1000	1000	# Mg2+
+so4	R_EX_so4_e	-1000	1000	# SO4
+sucr	R_EX_sucr_e	-1000	1000	# Sucrose
+pi	R_EX_pi_e	-1000	1000	# Phosphate
+glu__L	R_EX_glu__L_e	-1000	1000	# L-Glutamate
+asp__L	R_EX_asp__L_e	-1000	1000	# L-Aspartate
+lys__L	R_EX_lys__L_e	-1000	1000	# L-Lysine
+ala__L	R_EX_ala__L_e	-1000	1000	# L-Alanine
+ile__L	R_EX_ile__L_e	-1000	1000	# L-Isoleucine
+val__L	R_EX_val__L_e	-1000	1000	# L-Valine
+leu__L	R_EX_leu__L_e	-1000	1000	# L-Leucine
+gly	R_EX_gly_e	-1000	1000	# Glycine
+ser__L	R_EX_ser__L_e	-1000	1000	# L-Serine
+thr__L	R_EX_thr__L_e	-1000	1000	# L-Threonine
+pro__L	R_EX_pro__L_e	-1000	1000	# L-Proline
+phe__L	R_EX_phe__L_e	-1000	1000	# L-Phenylalanine
+his__L	R_EX_his__L_e	-1000	1000	# L-Histidine
+tyr__L	R_EX_tyr__L_e	-1000	1000	# L-Tyrosine
+arg__L	R_EX_arg__L_e	-1000	1000	# L-Arginine
+met__L	R_EX_met__L_e	-1000	1000	# L-Methionine
+cys__L	R_EX_cys__L_e	-1000	1000	# L-Cysteine
+orn	R_EX_orn_e	-1000	1000	# L-Ornithine
+thm	R_EX_thm_e	-1000	1000	# Thiamin 
+ribflv	R_EX_ribflv_e	-1000	1000	# Riboflavin 
+pnto__R	R_EX_pnto__R_e	-1000	1000	# Pantothenate 
+pydxn	R_EX_pydxn_e	-1000	1000	# Pyridoxine 
+nac	R_EX_nac_e	-1000	1000	# Nicotinic acid 
+btn	R_EX_btn_e	-1000	1000	# Biotin 
+fe2	R_EX_fe2_e	-1000	1000	# Fe2+
+mn2	R_EX_mn2_e	-1000	1000	# Mn2+
+cobalt2	R_EX_cobalt2_e	-1000	1000	# Co2+
+zn2	R_EX_zn2_e	-1000	1000	# Zn2+
+cu2	R_EX_cu2_e	-1000	1000	# Cu2+
+slnt	R_EX_slnt_e	-1000	1000	# Selenite
+mobd	R_EX_mobd_e	-1000	1000	# Tungstate
+h2o	R_EX_h2o_e	-1000	1000	#water auto-added for COBRA exchange balance
+h	R_EX_h_e	-1000	1000	#proton auto-added for COBRA exchange balance
+co2	R_EX_co2_e	0	1000	#carbon dioxide secretion only
+o2	R_EX_o2_e	0	1000	#oxygen closed for anaerobic condition
+n2o	R_EX_n2o_e	-1000	1000	#N2O

@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "syncomdesign"
+version = "0.1.0"
+description = "MATLAB-aligned Python CLI for SynComDesign community metabolic design"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "cobra>=0.29",
+  "PyYAML>=6",
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest>=8",
+]
+
+[project.scripts]
+syncomdesign = "syncomdesign.cli:main"
+
+[tool.setuptools]
+packages = ["syncomdesign"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+

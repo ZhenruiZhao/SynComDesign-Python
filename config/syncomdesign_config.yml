@@ -1,0 +1,47 @@
+project:
+  name: SynComDesign
+  output_dir: results
+  tmp_dir: null
+
+models:
+  directory: models
+  file_pattern: "*.xml"
+  biomass_reactions_file: config/biomass_reactions.tsv
+  metabolite_aliases_file: config/metabolite_aliases.tsv
+  preserve_strain_id_as_string: true
+
+medium:
+  file: media/medium.tsv
+  condition: anaerobic
+  community_medium_mode: external_shared_only
+  close_unlisted_external_medium_uptakes: true
+  allow_cross_feeding: true
+  close_strain_interface_uptakes: false
+  close_internal_transport: false
+  legacy_all_exchange: false
+
+combinations:
+  mode: all
+  min_size: 1
+  max_size: null
+
+community:
+  require_all_species_active: true
+  minimum_biomass_flux: 1.0e-6
+  shared_environment_compartment: u
+
+objective:
+  scenario_id: 1
+  growth_fraction: 0.9
+  target_strain: null
+  biomass_weights: equal
+
+solver:
+  name: glpk
+  tolerance: 1.0e-9
+
+output:
+  write_debug_tables: true
+  write_failed_combinations: true
+  write_community_models: false
+
