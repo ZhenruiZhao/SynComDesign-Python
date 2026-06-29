@@ -101,14 +101,4 @@ Main output tables include:
 
 See [docs/SERVER_INSTALLATION.md](docs/SERVER_INSTALLATION.md) for a detailed multi-user Linux/PBS installation guide.
 
-## Repository Hygiene
 
-Do not commit:
-
-- real SBML/COBRA model files,
-- `results*/`,
-- `python_reference_exports/`,
-- solver logs,
-- Python caches.
-
-These are already excluded in `.gitignore`.
