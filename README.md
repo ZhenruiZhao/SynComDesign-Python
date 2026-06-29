@@ -63,6 +63,74 @@ syncomdesign run \
   --threads 1
 ```
 
+## Objective Modes (ID1-ID5)
+
+Choose the design objective in `config/syncomdesign_config.yml`:
+
+```yaml
+objective:
+  scenario_id: 1
+  growth_fraction: 0.9
+  target_strain: null
+  biomass_weights: equal
+```
+
+Set `objective.scenario_id` to one of:
+
+| ID | Mode | Use case | Extra settings |
+| --- | --- | --- | --- |
+| ID1 | Total community biomass | Find combinations with maximum total community growth. | None |
+| ID2 | Target-strain biomass | Find combinations that maximize one selected strain. Only combinations containing the target strain are evaluated. | Set `target_strain`, for example `"005"` |
+| ID3 | Equal community composition | Force strain biomass fluxes to equal proportions while optimizing growth. | None |
+| ID4 | Fixed community composition | Force strain biomass fluxes to configured proportions. If no ratio is provided, equal proportions are used to match MATLAB behavior. | Optional `composition_ratio` |
+| ID5 | Growth first, N2O consumption second | First maximize growth, then keep growth above `growth_fraction * max_growth` and maximize N2O uptake. | Set `growth_fraction` |
+
+Examples:
+
+ID1:
+
+```yaml
+objective:
+  scenario_id: 1
+  growth_fraction: 0.9
+  target_strain: null
+  biomass_weights: equal
+```
+
+ID2 for strain `005`:
+
+```yaml
+objective:
+  scenario_id: 2
+  target_strain: "005"
+  growth_fraction: 0.9
+  biomass_weights: equal
+```
+
+ID5:
+
+```yaml
+objective:
+  scenario_id: 5
+  growth_fraction: 0.9
+  target_strain: null
+  biomass_weights: equal
+```
+
+A practical server pattern is to keep one config file per objective:
+
+```bash
+cp config/syncomdesign_config.yml config/id1.yml
+cp config/syncomdesign_config.yml config/id2_005.yml
+cp config/syncomdesign_config.yml config/id5.yml
+```
+
+Then edit `scenario_id`, `target_strain`, and `growth_fraction`, and write results to separate output directories:
+
+```bash
+syncomdesign run --config config/id2_005.yml --outdir results_id2_005
+```
+
 Validate inputs:
 
 ```bash
@@ -97,8 +165,38 @@ Main output tables include:
 - `flux_mapping.tsv`
 - `flux_values.tsv`
 
+## MATLAB Alignment
+
+If MATLAB reference exports are available:
+
+```bash
+syncomdesign compare-matlab \
+  --config config/syncomdesign_config.yml \
+  --python-outdir results_id1 \
+  --reference /path/to/python_reference_exports \
+  --outdir results_compare_matlab
+```
+
+Inspect:
+
+```text
+results_compare_matlab/matlab_alignment_report.md
+results_compare_matlab/matlab_alignment_summary.tsv
+results_compare_matlab/matlab_alignment_differences.tsv
+```
+
 ## Server Use
 
 See [docs/SERVER_INSTALLATION.md](docs/SERVER_INSTALLATION.md) for a detailed multi-user Linux/PBS installation guide.
 
+## Repository Hygiene
 
+Do not commit:
+
+- real SBML/COBRA model files,
+- `results*/`,
+- `python_reference_exports/`,
+- solver logs,
+- Python caches.
+
+These are already excluded in `.gitignore`.
