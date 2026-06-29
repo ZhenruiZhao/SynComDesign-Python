@@ -100,25 +100,6 @@ flux_mapping.tsv
 
 如果 `failed_combinations.tsv` 有内容，先查看具体组合错误；程序会尽量继续运行后续组合。
 
-## MATLAB 对齐
-
-```bash
-syncomdesign compare-matlab \
-  --config config/syncomdesign_config.yml \
-  --python-outdir results_id1 \
-  --reference /path/to/python_reference_exports \
-  --outdir results_compare_matlab
-```
-
-重点查看：
-
-```text
-results_compare_matlab/matlab_alignment_report.md
-results_compare_matlab/matlab_alignment_summary.tsv
-results_compare_matlab/matlab_alignment_differences.tsv
-```
-
-如果 medium bounds 或 interface bounds 不一致，应优先修复 mapping/bounds。
 
 ## Zero Biomass 诊断
 
